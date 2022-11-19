@@ -1,0 +1,21 @@
+%Combining Functions, Exercise 5
+%Fu Wen Tay
+
+%n is the number of arrows on the plot that are evenly rotated about point
+%p,q
+n = 5; 
+p = 1.5;
+q = -4;
+
+%a is the angle between arrows that is determined from n
+a = (2*pi)/n
+
+%plot arrows
+
+for k=[1:n]
+    drawshape(arrow)
+    arrow =
+
+
+X = rotateabout(arrow, a, p, q)
+drawshape(rotateXyNewArrow, 'b')

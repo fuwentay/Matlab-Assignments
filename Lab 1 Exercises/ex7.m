@@ -1,0 +1,46 @@
+%Trapezoidal Rule
+%Fu Wen Tay
+
+%Defining functions and parameters (bounds and constants)
+lower_b=0;
+upper_b=1;
+h=0.01;
+
+%Generating x
+x=[lower_b:h:upper_b];
+
+%Generating f
+f=(3*x.^2)+1
+
+%Finding f1,fn and remaining set
+f1=f(1)
+fn=f(((upper_b-lower_b)/h)+1)
+%could have used f(end) to return last element
+fset=f(2:((upper_b-lower_b)/h))
+
+%Evaluate Integral
+y=((f1+fn)*h/2)+h*sum(fset)
+
+%b)
+
+%True value of y is 2
+
+%c)
+
+%Calculated value (trapezoidal rule)
+y
+%(y=  2.0050 when h=0.1)
+
+%Actual value
+actual=2
+
+%Difference
+diff=y-actual %(0.0050)
+
+%d)
+
+%When h is changed to 0.01, the calculated value of y is shown to be
+%2.0000. But the difference between the calculated and actual value of 2 is
+%5.0000e-05. This means that the error is lower when h is reduced from 0.1
+%to 0.01, giving a more precise answer.
+
