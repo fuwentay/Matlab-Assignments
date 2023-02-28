@@ -1,0 +1,18 @@
+function newstate = simulator(thrust, oldstate)
+% Use Euler's Method to predict the velocity and height of the ball at next
+% time step. For simulation for the Ball Thrown Upwards in script ball2.m.
+% The input and output are a bundle of variables called state containing:
+% height (h), velocity (v), acceleration (a) timestep (dt) and current time (t).
+    
+% Make a new copy of all the variables  in state, ready for updating.
+newstate = oldstate;
+ 
+% 4.1 Use Euler's method to find the position at the next step
+newstate.h = oldstate.h + oldstate.dt * oldstate.v;
+ 
+% 4.2 Use Euler's method to find the velocity at the next step
+newstate.v = oldstate.v + oldstate.dt * oldstate.a;
+    
+% 4.3 Increase the time by dt
+newstate.t = oldstate.t + oldstate.dt;
+
