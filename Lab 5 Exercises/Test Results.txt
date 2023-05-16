@@ -1,0 +1,30 @@
+The lander simulator and controller
+Author: Fu Wen Tay, Date: 20/2/23
+
+Test 1:
+From SUVAT equations, the velocity when the lander hits the ground can be determined using v = sqrt(u^2 + 2as) = -385.824 m/s.
+Likewise, the time when the lander hits the ground can be determined using t = 2s/(v+u) = 8.749s.
+Using the data cursor, the final velocity is -385.347m/s and the time of the crash is 8.7s.
+The program is giving results I would expect.
+
+Test 2:
+The weight of the lander is 19620N.
+When the lander hits the ground, the acceleration is 0m/s^2 and the time is 9.9s.
+
+Test 3:
+When the thrust is 50000N, the fuel runs out at 30s. The acceleration is -9.81m/s^2 and the fuel mass is 0kg.
+When the thrust is 51000N, the final fuel mass is 0kg.
+When the thrust is -50000N, the final fuel mass is 1150kg. This is because, the lander accelerates towards the ground and touches down before fuel is fully exhausted.
+Looking at the code, the while loop condition (height > 0) has been triggered and no more fuel is being used.
+Using the data cursor, the peak height is 37206m. Using PE = mgh, the potential energy is 1.825e8J.
+Using the data cursor, the velocity at impact is -853.942m/s^2. Using KE = 1/2 mv^2, the kinetic energy is 1.823e8J.
+The results are consistent. Based on conservation of energy, gravitational potential energy at the peak would be converted to kinetic energy at the point of impact given that there is no velocity at the peak.
+
+Test 4a: 
+The lander reaches its maximum height at 45.1s. Its velocity is 0m/s and its acceleration is -9.81m/s^2.
+At the maximum height there is no velocity due to the loss of kinetic energy. Since there is no velocity, there is no drag and hence it's accelerating at free fall.
+
+Test 4b:
+Using v = cubert(3mg), terminal velocity is 121.31m/s. Using the smart cursor, the terminal velocity is -121.299m/s. Thus, it agrees.
+The acceleration at terminal velocity is 0m/s^2. This makes sense as there is no net force due to the drag counteracting gravity. Hence, no acceleration.
+The large change in acceleration when fuel runs out is due to the lack of thrust. The only forces acting on the lander is gravity and drag.

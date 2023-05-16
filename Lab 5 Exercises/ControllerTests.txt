@@ -1,0 +1,136 @@
+Fu Wen Tay, 15 May, Exercise 5b
+
+Version 7 = Linear Target Velocity Controller, Design Criteria, Variable Mass Model, Variable Drag Model, Run lander.m
+- Intercept: 0
+- Slope: -0.1/s
+- Initial velocity: -300m/s
+- Height: 3000m
+- Control gain: 1000
+- Landing velocity =-0.98147m/s. Criteria #1 Passed!
+- Fuel remaining at landing =0kg. Criteria #2 Failed!
+- Max Acceleration =22.4101m/s^2. Criteria #3 Passed!
+- Behaviour of landing: The height of the of lander seems to follow an exponential decay with time. Meaning that the velocity of the lander decreases with time
+  drastically and takes a very long (or even infinitely) long time to touch the ground. Hence, it can be observed that from 40 to 120s, the height of the lander
+  has not changed significantly yet it has still not touched the ground. Within that timespan, it has also used more than 500kg of fuel. This is a very poor
+  landing logic therefore it failed.
+
+- Intercept: -1
+- Slope: -0.1/s
+- Initial velocity: -300m/s
+- Height: 3000m
+- Control gain: 1000
+- Landing velocity =-1.1281m/s. Criteria #1 Passed!
+- Fuel remaining at landing =501.0383kg. Criteria #2 Passed!
+- Max Acceleration =22.3306m/s^2. Criteria #3 Passed!
+
+- Intercept: -2
+- Slope: -0.1/s
+- Initial velocity: -300m/s
+- Height: 3000m
+- Control gain: 1000
+- Landing velocity =-2.2885m/s. Criteria #1 Failed!
+- Fuel remaining at landing =564.5079kg. Criteria #2 Passed!
+- Max Acceleration =22.2565m/s^2. Criteria #3 Passed!
+
+- Intercept: -1
+- Slope: -0.1/s
+- Initial velocity: -310m/s
+- Height: 2900m
+- Control gain: 1000
+- Landing velocity =-1.1314m/s. Criteria #1 Passed!
+- Fuel remaining at landing =491.7619kg. Criteria #2 Passed!
+- Max Acceleration =27.7873m/s^2. Criteria #3 Passed!
+
+- Intercept: -1
+- Slope: -0.1/s
+- Initial velocity: -290m/s
+- Height: 3100m
+- Control gain: 1000
+- Landing velocity =-1.1349m/s. Criteria #1 Passed!
+- Fuel remaining at landing =511.3253kg. Criteria #2 Passed!
+- Max Acceleration =20.9264m/s^2. Criteria #3 Passed!
+
+Version 8 = Piecewise Linear Target Velocity Controller, Design Criteria, Variable Mass Model, Variable Drag Model, Run lander.m
+
+- state.Hpoints = [0 1500 3000]    
+- state.Vpoints = [-1 -100 -300]
+- split: 1500
+- gradients: [-0.0660 -0.1333]
+- intercepts: [-1 100]
+- Initial velocity: -290m/s
+- Height: 3100m
+- Control gain: 1000
+- Landing velocity =-1.0617m/s. Criteria #1 Passed!
+- Fuel remaining at landing =307.6198kg. Criteria #2 Passed!
+- Max Acceleration =27.1616m/s^2. Criteria #3 Passed!
+- The lander is able to land safely. However, it is observed that it uses more fuel with a Piecewise Linear (PWL) target velocity as compared to the linear model.
+  A different pwl that will be better than the linear model can be determined by automatically varying the Hpoints and Vpoints (in turn the split, gradients and intercepts) and
+  selecting the values that results in the most fuel remaining if fuel is the priority.
+
+Version 9 = Improved Piecewise Linear Target Velocity Controller (through automated investigation), Design Criteria, Variable Mass Model, Variable Drag Model, Run lander.m
+
+- As a quick recap, our design criteria are:
+    1. Touchdown velocity between 0 and -2m/s
+    2. Fuel Mass upon landing greater than 0kg.
+    3. Maximum acceleration less than 6g.
+- Given that all the landers with sVel (Target Velocity (m/s) at Height of 1500m) values between -300 and -100m/s
+  have a maximum acceleration under 6g (greatest max acceleration is 37.0489m/s^2 for sVel of -300m/s), all the landers
+  pass the criteria of max acceleration.
+- It is observed that at a sVel value of greater magnitude (larger negative value), the landing velocity and fuel left is
+  also greater. Although a greater amount of fuel left is ideal, our landing velocity cannot exceed 2m/s. 
+  Therefore, our landing velocity is our limiting factor and we would choose the value of sVel closest to -2m/s as long
+  as it is >= to -2m/s. As such, we will take an sVel value that corresponds to a Landing Velocity value of 1.85m/s which is a safe estimate. 
+  This value is -282m/s.
+
+- state.Hpoints = [0 1500 3000]    
+- state.Vpoints = [-1 -282 -300]
+- split: 1500
+- Initial velocity: -300m/s
+- Height: 3000m
+- Control gain: 1000
+- Landing velocity =-1.8514m/s. Criteria #1 Passed!
+- Fuel remaining at landing =826.6435kg. Criteria #2 Passed!
+- Max Acceleration =33.8387m/s^2. Criteria #3 Passed!
+ 
+Test for robustness:
+- state.Hpoints = [0 1500 3000]    
+- state.Vpoints = [-1 -282 -300]
+- split: 1500
+- Initial velocity: -310m/s
+- Height: 2900m
+- Control gain: 1000
+Landing velocity =-1.8032m/s. Criteria #1 Passed!
+Fuel remaining at landing =811.9386kg. Criteria #2 Passed!
+Max Acceleration =33.9486m/s^2. Criteria #3 Passed!
+
+Test for robustness:
+- state.Hpoints = [0 1500 3000]    
+- state.Vpoints = [-1 -282 -300]
+- split: 1500
+- Initial velocity: -290m/s
+- Height: 3100m
+- Control gain: 1000
+Landing velocity =-1.9738m/s. Criteria #1 Passed!
+Fuel remaining at landing =842.8717kg. Criteria #2 Passed!
+Max Acceleration =33.7498m/s^2. Criteria #3 Passed!
+
+Given that the value of sVel = -185m/s passed the robustness tests, it is a suitable value for the target velocity at 1500m.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
